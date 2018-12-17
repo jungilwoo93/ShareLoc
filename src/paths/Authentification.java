@@ -40,7 +40,7 @@ public class Authentification {
 		if (user!=null)
 			return Response.ok().entity(user).build();
 		return Response.status(Status.NO_CONTENT).build();*/
-		return "coucou";
+		return "bdf";
 	}
 	
 	@POST

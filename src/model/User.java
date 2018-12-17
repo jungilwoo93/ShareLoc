@@ -11,8 +11,10 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@GeneratedValue
+	private int pk;
+	@Column(name = "Email",nullable=false,unique=true)
 	private String email;
-	@Column(name = "Password",length=15,nullable=false,unique=true)
+	@Column(name = "Password",nullable=false)
 	private String password;
 	@Column(name="First_Name",length=100,nullable=false,unique=false)
 	private String firstname;
