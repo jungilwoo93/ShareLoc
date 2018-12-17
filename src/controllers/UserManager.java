@@ -35,7 +35,8 @@ public class UserManager {
 		
 	}
 	
-	public static void connect(String login, String pw) {
-		
+	public static User login(String login, String password) {
+		// TODO Auto-generated method stub
+		return new User();
 	}
 }

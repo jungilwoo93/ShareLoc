@@ -1,4 +1,4 @@
-package paths;
+package security;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -19,7 +19,6 @@ import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 
 import paths.Authentification;
-import security.RsaKeyProducer;
 
 @Provider
 @SigninNeeded

@@ -9,8 +9,6 @@ import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
 import org.jose4j.lang.JoseException;
 
-import paths.JWTAuthFilter;
-
 public class JWTokenUtility {
 
     public static String buildJWT(String subject) {

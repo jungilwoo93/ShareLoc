@@ -57,6 +57,11 @@ public class User {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
+	public String getLogin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

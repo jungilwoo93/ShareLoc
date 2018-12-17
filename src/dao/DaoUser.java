@@ -2,12 +2,10 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
 
 import model.User;
 
@@ -27,13 +25,13 @@ public class DaoUser extends DaoAbstract<User>{
 	 */
 	public DaoUser(Class<User> classeEntite) {
 		this.classeEntite = classeEntite;
-		this.em=getEntityManager();
+		DaoUser.em=getEntityManager();
 		User user=new User();
 		user.setEmail("panpan@uha.fr");
 		user.setPassword("root");
 		user.setFirstname("pan");
 		user.setLastname("liuyan");
-		this.em.persist(user);
+		DaoUser.em.persist(user);
 	}
 
 	/**
