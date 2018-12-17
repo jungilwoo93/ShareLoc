@@ -30,23 +30,17 @@ public class Authentification {
 		return "coucou";
 		//return Response.ok().entity(UserManager.getAllUsers()).build();
 	}
-	
-	@GET
-	@Path("/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUser(@PathParam("id") String id) {
-		return Response.ok().entity(UserManager.getUser(id)).build();
-	}
 
 	@GET
 	@SigninNeeded
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response whoami(@Context SecurityContext security) {
-		User user = UserManager.getUser(security.getUserPrincipal().getName());
+	public String whoami(@Context SecurityContext security) {
+		/*User user = UserManager.getUser(security.getUserPrincipal().getName());
 		if (user!=null)
 			return Response.ok().entity(user).build();
-		return Response.status(Status.NO_CONTENT).build();
+		return Response.status(Status.NO_CONTENT).build();*/
+		return "coucou";
 	}
 	
 	@POST
@@ -60,6 +54,8 @@ public class Authentification {
 
 		return Response.status(Status.NOT_ACCEPTABLE).build();
 	}
+	
+	
 	
 	public static List<String> findUserRoles(String subject) {
 		// TODO Auto-generated method stub
