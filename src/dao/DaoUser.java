@@ -72,31 +72,31 @@ public class DaoUser extends DaoAbstract<User>{
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<User> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getUser(String login) {
+	public User get(String login) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void createUser() {
+	public void create() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void update(User user) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void delete(User user) {
 		// TODO Auto-generated method stub
 		
 	}

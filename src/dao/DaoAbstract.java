@@ -6,9 +6,9 @@ import model.User;
 
 public abstract class DaoAbstract<T> {
 
-	public abstract List<User> getAllUsers();
-	public abstract User getUser(String login);
-	public abstract void createUser();
-	public abstract void updateUser(User user);
-	public abstract void deleteUser(User user);
+	public abstract List<T> getAll();
+	public abstract T get(String login);
+	public abstract void create();
+	public abstract void update(T obj);
+	public abstract void delete(T obj);
 }
