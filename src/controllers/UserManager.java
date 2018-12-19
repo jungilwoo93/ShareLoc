@@ -8,7 +8,7 @@ import model.User;
 //methode pour les utilisateurs puissent utiliser
 public class UserManager {
 
-	static DaoUser dao = new DaoUser(User.class);
+	static DaoUser dao = new DaoUser();
 	public static List<User> getAllUsers() {
 		List<User> lv = dao.findAll();
 		return lv;
@@ -17,7 +17,11 @@ public class UserManager {
 
 	public static User getUser(String login) {
 		// TODO Auto-generated method stub
-		return (User) dao.find(login);
+		if(login == null) {
+			return null;
+		}
+		User u = dao.find(login);
+		return u;
 	}
 
 	public static void createUser() {

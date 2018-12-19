@@ -26,9 +26,9 @@ import security.SigninNeeded;
 public class Authentification {
 
 	@GET
-	public String getAllUser(){
-		return "coucou";
-		//return Response.ok().entity(UserManager.getAllUsers()).build();
+	public Response getAllUser(){
+		//return "coucou";
+		return Response.ok().entity(UserManager.getAllUsers()).build();
 	}
 
 	@GET
@@ -36,11 +36,15 @@ public class Authentification {
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String whoami(@Context SecurityContext security) {
-		/*User user = UserManager.getUser(security.getUserPrincipal().getName());
-		if (user!=null)
-			return Response.ok().entity(user).build();
-		return Response.status(Status.NO_CONTENT).build();*/
-		return "bdf";
+		User user = UserManager.getUser(security.getUserPrincipal().getName());
+		//User user = UserManager.getUser("liuyan.pan@uha.fr");
+		/*if (user!=null)
+			return "!null";*/
+			//return Response.ok().entity(user).build();
+		//return "null";
+		//return Response.status(Status.NO_CONTENT).build();
+		//return "bdf";
+		return "bello";
 	}
 	
 	@POST

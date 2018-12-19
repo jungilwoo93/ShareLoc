@@ -11,11 +11,16 @@ import model.User;
 
 public class DaoUser extends DaoAbstract<User>{
 
-	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("User_EntityManager");
-	static EntityManager em = null;
+	public DaoUser() {
+		super(User.class);
+		// TODO Auto-generated constructor stub
+	}
+
+	/*static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("User_EntityManager");
+	static EntityManager em = null;*/
 
 	// attribut typant la facade : c'est la classe de l'objet métier
-	private Class<User> classeEntite;
+	//private Class<User> classeEntite;
 
 	/**
 	 * Constructeur
@@ -23,7 +28,7 @@ public class DaoUser extends DaoAbstract<User>{
 	 * @param classeEntite
 	 *            La classe de l'objet metier
 	 */
-	public DaoUser(Class<User> classeEntite) {
+	/*public DaoUser(Class<User> classeEntite) {
 		this.classeEntite = classeEntite;
 		DaoUser.em=getEntityManager();
 		User user=new User();
@@ -32,7 +37,7 @@ public class DaoUser extends DaoAbstract<User>{
 		user.setFirstname("pan");
 		user.setLastname("liuyan");
 		DaoUser.em.persist(user);
-	}
+	}*/
 
 	/**
 	 * Methode abstraite a definir dans chaque sous-classe qui renvoie
@@ -40,11 +45,11 @@ public class DaoUser extends DaoAbstract<User>{
 	 * 
 	 * @return l'entity manager
 	 */
-	protected EntityManager getEntityManager() {
+	/*protected EntityManager getEntityManager() {
 		if (em == null)
 			em = emfactory.createEntityManager();
 		return em;
-	}
+	}*/
 
 	/**
 	 * Methode de recherche d'un objet a partir de son identifiant.
@@ -53,25 +58,25 @@ public class DaoUser extends DaoAbstract<User>{
 	 * @return
 	 * @return
 	 */
-	public User find(Object id) {
+	/*public User find(Object id) {
 		return getEntityManager().find(classeEntite, id);
-	}
+	}*/
 
 	/**
 	 * Methode recherchant tous les objets de ce type.
 	 * 
 	 * @return
 	 */
-	public ArrayList<User> findAll() {
+	//public ArrayList<User> findAll() {
 		//CriteriaQuery<User> cq = (CriteriaQuery<User>) getEntityManager().getCriteriaBuilder().createQuery();
 		//cq.select(cq.from(classeEntite));
 		//Vector<User> v = (Vector<User>) getEntityManager().createQuery(cq).getResultList();
 		//if (v!=null)
 		//	return new ArrayList<User>(v);
-		return null;
-	}
+		//return null;
+	//}
 
-	@Override
+	/*@Override
 	public List<User> getAll() {
 		// TODO Auto-generated method stub
 		return null;
@@ -99,7 +104,7 @@ public class DaoUser extends DaoAbstract<User>{
 	public void delete(User user) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
 	
 }
