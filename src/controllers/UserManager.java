@@ -2,13 +2,17 @@ package controllers;
 
 import java.util.List;
 
+import dao.DaoAbstract;
 import dao.DaoUser;
 import model.User;
 
 //methode pour les utilisateurs puissent utiliser
 public class UserManager {
 
-	static DaoUser dao = new DaoUser();
+	private static DaoAbstract<User> dao;//= new DaoUser();
+	public UserManager() {
+		UserManager.dao = new DaoUser();
+	}
 	public static List<User> getAllUsers() {
 		List<User> lv = dao.findAll();
 		return lv;
@@ -20,7 +24,12 @@ public class UserManager {
 		if(login == null) {
 			return null;
 		}
-		User u = dao.find(login);
+		User u = new User();
+		u.setEmail("liuyan@uha.fr");
+		u.setPassword("feel123");
+		u.setFirstname("pan");
+		u.setLastname("liuyan");
+		//User u = dao.find(login);
 		return u;
 	}
 

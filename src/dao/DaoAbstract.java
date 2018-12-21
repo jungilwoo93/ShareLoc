@@ -1,12 +1,14 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 
 import model.User;
@@ -18,8 +20,10 @@ public abstract class DaoAbstract<T> {
 	public abstract void create();
 	public abstract void update(T obj);
 	public abstract void delete(T obj);*/
-	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("ShareLoc");
-	static EntityManager em = emfactory.createEntityManager();
+	//@PersistenceContext(unitName="ShareLoc")
+	static EntityManagerFactory emfactory=Persistence.createEntityManagerFactory("ShareLoc");
+	//@PersistenceContext(unitName="ShareLoc")
+	static EntityManager em = null;
 
 	// attribut typant la facade : c'est la classe de l'objet métier
 	private Class<T> classeEntite;
@@ -31,6 +35,7 @@ public abstract class DaoAbstract<T> {
 	 *            La classe de l'objet metier
 	 */
 	public DaoAbstract(Class<T> classeEntite) {
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		this.classeEntite = classeEntite;
 	}
 
@@ -41,8 +46,11 @@ public abstract class DaoAbstract<T> {
 	 * @return l'entity manager
 	 */
 	protected EntityManager getEntityManager() {
-		if (em == null)
+		if (em == null) {
 			em = emfactory.createEntityManager();
+			System.out.println("null");
+		}
+			
 		return em;
 	}
 	/**
@@ -51,10 +59,11 @@ public abstract class DaoAbstract<T> {
 	 * @param entite
 	 */
 	public T create(T entite) {
-		getEntityManager().getTransaction().begin();
-		getEntityManager().persist(entite);
-		getEntityManager().flush();
-		getEntityManager().getTransaction().commit();
+		final EntityManager em = getEntityManager();
+		em.getTransaction().begin();
+		em.persist(entite);
+		em.flush();
+		em.getTransaction().commit();
 		return entite;
 	}
 
@@ -64,9 +73,10 @@ public abstract class DaoAbstract<T> {
 	 * @param entite
 	 */
 	public void edit(T entite) {
-		getEntityManager().getTransaction().begin();
-		getEntityManager().merge(entite);
-		getEntityManager().getTransaction().commit();
+		final EntityManager em = getEntityManager();
+		em.getTransaction().begin();
+		em.merge(entite);
+		em.getTransaction().commit();
 	}
 
 	/**
@@ -94,13 +104,19 @@ public abstract class DaoAbstract<T> {
 	 * 
 	 * @return
 	 */
-	public ArrayList<T> findAll() {
-		CriteriaQuery<T> cq = (CriteriaQuery<T>) getEntityManager().getCriteriaBuilder().createQuery();
+	public List<T> findAll() {
+		final EntityManager em = getEntityManager();
+		final CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(classeEntite);
 		cq.select(cq.from(classeEntite));
-		Vector<T> v = (Vector<T>) getEntityManager().createQuery(cq).getResultList();
+		/*Vector<T> v = (Vector<T>) getEntityManager().createQuery(cq).getResultList();
 		if (v!=null)
 			return new ArrayList<T>(v);
-		return null;
+		return null;*/
+		final List<T> results = em.createQuery(cq).getResultList();
+        if (results == null) {
+            return Collections.emptyList();
+        }
+        return results;
 	}
 
 	/**
@@ -111,7 +127,7 @@ public abstract class DaoAbstract<T> {
 	 * @return
 	 */
 	public List<T> findRange(int[] etendue) {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery(classeEntite);
 		cq.select(cq.from(classeEntite));
 		javax.persistence.Query q = getEntityManager().createQuery(cq);
 		q.setMaxResults(etendue[1] - etendue[0]);

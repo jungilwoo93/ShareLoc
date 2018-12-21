@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,16 +36,11 @@ public class Authentification {
 	@SigninNeeded
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String whoami(@Context SecurityContext security) {
+	public Response whoami(@Context SecurityContext security) {
 		User user = UserManager.getUser(security.getUserPrincipal().getName());
-		//User user = UserManager.getUser("liuyan.pan@uha.fr");
-		/*if (user!=null)
-			return "!null";*/
-			//return Response.ok().entity(user).build();
-		//return "null";
-		//return Response.status(Status.NO_CONTENT).build();
-		//return "bdf";
-		return "bello";
+		if (user!=null)
+			return Response.ok().entity(user).build();
+		return Response.status(Status.NO_CONTENT).build();
 	}
 	
 	@POST
@@ -59,6 +55,12 @@ public class Authentification {
 		return Response.status(Status.NOT_ACCEPTABLE).build();
 	}
 	
+	@PUT
+	@Path("/createAccount")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createAccount() {
+		return "coucoucou";
+	}
 	
 	
 	public static List<String> findUserRoles(String subject) {
