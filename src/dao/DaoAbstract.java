@@ -1,28 +1,18 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
-
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-import model.User;
 
 public abstract class DaoAbstract<T> {
 
-	/*public abstract List<T> getAll();
-	public abstract T get(String login);
-	public abstract void create();
-	public abstract void update(T obj);
-	public abstract void delete(T obj);*/
-	//@PersistenceContext(unitName="ShareLoc")
 	static EntityManagerFactory emfactory=Persistence.createEntityManagerFactory("ShareLoc");
-	//@PersistenceContext(unitName="ShareLoc")
 	static EntityManager em = null;
 
 	// attribut typant la facade : c'est la classe de l'objet métier
@@ -35,7 +25,7 @@ public abstract class DaoAbstract<T> {
 	 *            La classe de l'objet metier
 	 */
 	public DaoAbstract(Class<T> classeEntite) {
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		this.classeEntite = classeEntite;
 	}
 
@@ -48,7 +38,7 @@ public abstract class DaoAbstract<T> {
 	protected EntityManager getEntityManager() {
 		if (em == null) {
 			em = emfactory.createEntityManager();
-			System.out.println("null");
+			//System.out.println("null");
 		}
 			
 		return em;
@@ -98,25 +88,26 @@ public abstract class DaoAbstract<T> {
 	public T find(Object id) {
 		return getEntityManager().find(classeEntite, id);
 	}
+	
+	/*@PreDestroy
+	public void destruct()
+	{
+		emfactory.close();
+		em.close();
+	}*/
 
 	/**
 	 * Methode recherchant tous les objets de ce type.
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		final EntityManager em = getEntityManager();
-		final CriteriaQuery<T> cq = em.getCriteriaBuilder().createQuery(classeEntite);
-		cq.select(cq.from(classeEntite));
-		/*Vector<T> v = (Vector<T>) getEntityManager().createQuery(cq).getResultList();
-		if (v!=null)
-			return new ArrayList<T>(v);
-		return null;*/
-		final List<T> results = em.createQuery(cq).getResultList();
-        if (results == null) {
-            return Collections.emptyList();
-        }
-        return results;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT u FROM "+classeEntite.getSimpleName()+" u" );
+		return query.getResultList();
 	}
 
 	/**
@@ -127,7 +118,7 @@ public abstract class DaoAbstract<T> {
 	 * @return
 	 */
 	public List<T> findRange(int[] etendue) {
-		CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery(classeEntite);
+		CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(classeEntite);
 		cq.select(cq.from(classeEntite));
 		javax.persistence.Query q = getEntityManager().createQuery(cq);
 		q.setMaxResults(etendue[1] - etendue[0]);

@@ -5,15 +5,40 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import model.User;
 
-public class DaoUser extends DaoAbstract<User>{
-
-	public DaoUser() {
-		super(User.class);
-		// TODO Auto-generated constructor stub
+public class DaoUser{
+	
+	@SuppressWarnings("unchecked")
+	static public List<User> findAll(){
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Query query = em.createQuery("SELECT u FROM User u" );
+		return query.getResultList();	
+	}
+	
+	static public User getUser(String login) {
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Query query = em.createQuery("SELECT u FROM User u WHERE u.email = :email");
+			query.setParameter("email", login);
+			return (User) query.getSingleResult();
+		}catch(NoResultException e) {
+			return null;
+		}
+	}
+	
+	public static User find(Object id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		return em.find(User.class, id);
 	}
 
 	/*static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("User_EntityManager");

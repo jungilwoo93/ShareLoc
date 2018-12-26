@@ -9,7 +9,37 @@ import model.User;
 //methode pour les utilisateurs puissent utiliser
 public class UserManager {
 
-	private static DaoAbstract<User> dao;//= new DaoUser();
+	public static List<User> getUsers() {
+		//List<User> lv = DaoUser.findAll();
+		return DaoUser.findAll();
+	}
+
+	public static User getUser(String login) {		
+		/*if (login==null)
+			return null;*/
+		
+		return DaoUser.find(login);
+	}
+	
+	public static User login(String login, String password) {		
+		User u=DaoUser.find(login);
+		if(u!=null && u.getPassword().equals(password))
+			return u;
+		return null;
+		/*if(u!=null && Cryptage.checkPassword(password, u.password))
+			return u;
+		return null;*/
+	}
+	
+	/*public static boolean createUser(String login, String password, String firstname, String lastname) {
+		User u = daoUser.find(login);
+		if (u == null) {
+			daoUser.create(new User(login, password, firstname, lastname));
+			return true;
+		}
+		return false;
+	}*/
+	/*private static DaoAbstract<User> dao;//= new DaoUser();
 	public UserManager() {
 		UserManager.dao = new DaoUser();
 	}
@@ -25,7 +55,7 @@ public class UserManager {
 			return null;
 		}
 		User u = new User();
-		u.setEmail("liuyan@uha.fr");
+		u.setEmail(login);
 		u.setPassword("feel123");
 		u.setFirstname("pan");
 		u.setLastname("liuyan");
@@ -50,6 +80,8 @@ public class UserManager {
 	
 	public static User login(String login, String password) {
 		// TODO Auto-generated method stub
-		return new User();
-	}
+		//return new User();
+	//}
+	 * 
+	 */
 }

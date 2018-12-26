@@ -25,11 +25,11 @@ import security.SigninNeeded;
 //une route envoyer, si c'est bon, alors faire token
 @Path("/api")
 public class Authentification {
-
+	
 	@GET
-	public Response getAllUser(){
-		//return "coucou";
-		return Response.ok().entity(UserManager.getAllUsers()).build();
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllUser() {
+		return UserManager.getUsers().toString();
 	}
 
 	@GET
@@ -37,7 +37,8 @@ public class Authentification {
 	@Path("/whoami")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response whoami(@Context SecurityContext security) {
-		User user = UserManager.getUser(security.getUserPrincipal().getName());
+		//User user = UserManager.getUser(security.getUserPrincipal().getName());
+		User user = UserManager.getUser("315343948@qq.com");
 		if (user!=null)
 			return Response.ok().entity(user).build();
 		return Response.status(Status.NO_CONTENT).build();

@@ -7,28 +7,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table(name="Table_User")
+@JsonIgnoreProperties({"password"})
+//@Table(name="Table_User")
 public class User implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO)
-	private int pk;
-	@Column(name = "Email",nullable=false,unique=true)
 	private String email;
-	@Column(name = "Password",nullable=false)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
-	@Column(name="First_Name",length=100,nullable=false,unique=false)
 	private String firstname;
-	@Column(name="Last_Name",length=100,nullable=false,unique=false)
 	private String lastname;
 	
-	/*public User(String email,String password,String firstname,String lastname) {
+	/*public User() {
+		
+	}
+	public User(String email,String password,String firstname,String lastname) {
+		super();
 		this.setEmail(email);
 		this.setPassword(password);
 		this.setFirstname(firstname);
@@ -69,7 +72,7 @@ public class User implements Serializable {
 
 	public String getLogin() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.email;
 	}
 	
 	
