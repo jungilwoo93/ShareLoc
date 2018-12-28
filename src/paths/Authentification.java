@@ -78,6 +78,15 @@ public class Authentification {
 		return Response.ok().entity(Status.CREATED).build();
 	}
 	
+	@PUT
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateUser(@FormParam("login") String login, @FormParam("password") String password, @FormParam("firstname") String firstname, @FormParam("lastname") String lastname) {
+		if(UserManager.update(login, password, firstname, lastname))
+			return Response.ok().entity(Status.ACCEPTED).build();
+		return Response.ok().entity(Status.NOT_MODIFIED).build();
+	}
+	
 	
 	public static List<String> findUserRoles(String subject) {
 		// TODO Auto-generated method stub

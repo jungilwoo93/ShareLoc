@@ -44,6 +44,18 @@ public class UserManager {
 		}
 		return false;
 	}
+	
+	public static boolean update(String login, String password, String firstname,String lastname) {
+		User u = DaoUser.find(login);
+		if(u!=null) {
+			u.setPassword(password);
+			u.setFirstname(firstname);
+			u.setLastname(lastname);
+			DaoUser.update(u);
+			return true;
+		}
+		return false;
+	}
 	/*private static DaoAbstract<User> dao;//= new DaoUser();
 	public UserManager() {
 		UserManager.dao = new DaoUser();

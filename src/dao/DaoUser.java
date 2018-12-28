@@ -50,6 +50,16 @@ public class DaoUser{
 		em.close();
 		emf.close();
 	}
+	
+	public static void update(User u) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(u);
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+	}
 	/*static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("User_EntityManager");
 	static EntityManager em = null;*/
 
