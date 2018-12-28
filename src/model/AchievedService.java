@@ -51,11 +51,11 @@ public class AchievedService {
 		this.date = date;
 	}
 
-	public Image getImg() {
+	public URL getImg() {
 		return img;
 	}
 
-	public void setImg(Image img) {
+	public void setImg(URL img) {
 		this.img = img;
 	}
 
