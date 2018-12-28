@@ -11,6 +11,15 @@ public class Service {
 	private String description;
 	private int cost;
 	
+	public Service() {
+		
+	}
+	public Service(Colocation coloc,String title, String description, int cost) {
+		this.coloc=coloc;
+		this.title=title;
+		this.description=description;
+		this.cost=cost;
+	}
 	
 	public Colocation getColoc() {
 		return coloc;
