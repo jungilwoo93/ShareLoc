@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
+import javax.annotation.Priority;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -17,11 +18,13 @@ import org.jose4j.jwt.JwtClaims;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
+import javax.ws.rs.Priorities;
 
 import paths.Authentification;
 
 @Provider
 @SigninNeeded
+//@Priority(Priorities.AUTHENTICATION)
 public class JWTAuthFilter implements ContainerRequestFilter {
 
 	@Override
@@ -31,49 +34,50 @@ public class JWTAuthFilter implements ContainerRequestFilter {
 		if (authHeader == null)
 			throw new NotAuthorizedException("Bearer");
 
-		// rÃ©cupÃ©ration du JWT et vÃ©rification de la signature
+		// récupération du JWT et vérification de la signature
 		if (authHeader.startsWith("Bearer")) {
+			// test de validation de la signature et décodage du contenu du token
 			try {
-				// test de validation de la signature et dÃ©codage du contenu du token
-				final String subject = validate(authHeader.split(" ")[1]);
+			String subject = validate(authHeader.split(" ")[1]);
+			//final String subject = authHeader.substring("Bearer".length()).trim();
+			// définition du contexte de sécurité
+			final SecurityContext securityContext = requestContext.getSecurityContext();
+			if (subject != null) {
+				requestContext.setSecurityContext(new SecurityContext() {
+					@Override
+					public Principal getUserPrincipal() {
+						return new Principal() {
+							@Override
+							public String getName() {
+								return subject;
+							}
+						};
+					}
 
-				// dÃ©finition du contexte de sÃ©curitÃ©
-				final SecurityContext securityContext = requestContext.getSecurityContext();
-				if (subject != null) {
-					requestContext.setSecurityContext(new SecurityContext() {
-						@Override
-						public Principal getUserPrincipal() {
-							return new Principal() {
-								@Override
-								public String getName() {
-									return subject;
-								}
-							};
-						}
+					@Override
+					public boolean isUserInRole(String role) {
+						List<String> roles = Authentification.findUserRoles(subject);
+						if (roles != null)
+							return roles.contains(role);
+						return false;
+					}
 
-						@Override
-						public boolean isUserInRole(String role) {
-							List<String> roles = Authentification.findUserRoles(subject);
-							if (roles != null)
-								return roles.contains(role);
-							return false;
-						}
+					@Override
+					public boolean isSecure() {
+						return securityContext.isSecure();
+					}
 
-						@Override
-						public boolean isSecure() {
-							return securityContext.isSecure();
-						}
-
-						@Override
-						public String getAuthenticationScheme() {
-							return securityContext.getAuthenticationScheme();
-						}
-					});
-				}
-			} catch (InvalidJwtException ex) {
-				requestContext.setProperty("auth-failed", true);
-				requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+					@Override
+					public String getAuthenticationScheme() {
+						return securityContext.getAuthenticationScheme();
+					}
+				});
 			}
+			} catch (InvalidJwtException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 
 		} else {
 			requestContext.setProperty("auth-failed", true);
@@ -82,22 +86,22 @@ public class JWTAuthFilter implements ContainerRequestFilter {
 	}
 
 	/**
-	 * MÃ©thode de validation d'un JWT
+	 * Méthode de validation d'un JWT
 	 * 
 	 * @param jwt le token Ã  tester
-	 * @return le contenu du token dÃ©crytÃ© s'il est valide, null sinon
+	 * @return le contenu du token décryté s'il est valide, null sinon
 	 * @throws InvalidJwtException si le token n'est pas valide
 	 */
 	private String validate(String jwt) throws InvalidJwtException {
 		String subject = null;
 		RsaJsonWebKey rsaJsonWebKey = RsaKeyProducer.produce();
 
-		// construction du dÃ©codeur de JWT
+		// construction du décodeur de JWT
 		JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireSubject()  
 				.setVerificationKey(rsaJsonWebKey.getKey()) 
 				.build();
 
-		// validation du JWT et rÃ©cupÃ©ration du contenu
+		// validation du JWT et récupération du contenu
 		JwtClaims jwtClaims = jwtConsumer.processToClaims(jwt);
 		subject = (String) jwtClaims.getClaimValue("sub");
 

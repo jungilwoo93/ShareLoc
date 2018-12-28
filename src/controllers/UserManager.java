@@ -31,14 +31,19 @@ public class UserManager {
 		return null;*/
 	}
 	
-	/*public static boolean createUser(String login, String password, String firstname, String lastname) {
-		User u = daoUser.find(login);
+	public static boolean createUser(String login, String password, String firstname, String lastname) {
+		User u = DaoUser.find(login);
 		if (u == null) {
-			daoUser.create(new User(login, password, firstname, lastname));
+			u = new User();
+			u.setEmail(login);
+			u.setPassword(password);
+			u.setFirstname(firstname);
+			u.setLastname(lastname);
+			DaoUser.create(u);
 			return true;
 		}
 		return false;
-	}*/
+	}
 	/*private static DaoAbstract<User> dao;//= new DaoUser();
 	public UserManager() {
 		UserManager.dao = new DaoUser();

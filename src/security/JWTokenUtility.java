@@ -15,11 +15,11 @@ public class JWTokenUtility {
         RsaJsonWebKey rsaJsonWebKey = RsaKeyProducer.produce();
         System.out.println("RSA hash code... " + rsaJsonWebKey.hashCode());
 
-        // crÃ©ation de la "charge utile" ou payload - la donnÃ©e Ã  crypter, ici 'subject'
+        // création de la "charge utile" ou payload - la donnée Ã  crypter, ici 'subject'
         JwtClaims claims = new JwtClaims();
         claims.setSubject(subject);
 
-        // crÃ©ation de la signature
+        // création de la signature
         JsonWebSignature jws = new JsonWebSignature();
         jws.setPayload(claims.toJson());
         jws.setKey(rsaJsonWebKey.getPrivateKey());

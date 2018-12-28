@@ -41,6 +41,15 @@ public class DaoUser{
 		return em.find(User.class, id);
 	}
 
+	public static void create(User u) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(u);
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+	}
 	/*static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("User_EntityManager");
 	static EntityManager em = null;*/
 
