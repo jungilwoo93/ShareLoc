@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Colocation {
 	@Id
-	public String name;
+	private String name;
 	
 	public Colocation() {
 		
