@@ -71,7 +71,7 @@ public class Authentification {
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Consumes("application/x-www-form-urlencoded")
 	//@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response createAccount(@FormParam("login") String login, @FormParam("password") String password,@FormParam("firstname") String firstname, @FormParam("lastname") String lastname) {
+	public Response createUser(@FormParam("login") String login, @FormParam("password") String password,@FormParam("firstname") String firstname, @FormParam("lastname") String lastname) {
 		//return login+" " + password+" "+firstname+" "+lastname;
 		if(!UserManager.createUser(login, password, firstname, lastname))
 			return Response.ok().entity(Status.FORBIDDEN).build();
@@ -81,8 +81,9 @@ public class Authentification {
 	@PUT
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateUser(@FormParam("login") String login, @FormParam("password") String password, @FormParam("firstname") String firstname, @FormParam("lastname") String lastname) {
-		if(UserManager.update(login, password, firstname, lastname))
+	public Response updateUser(@QueryParam("login") String login, @FormParam("password") String password) {
+		User u = UserManager.getUser(login);
+		if(UserManager.update(login, password, u.getFirstname(), u.getLastname()))
 			return Response.ok().entity(Status.ACCEPTED).build();
 		return Response.ok().entity(Status.NOT_MODIFIED).build();
 	}

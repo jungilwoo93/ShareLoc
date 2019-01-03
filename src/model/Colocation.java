@@ -13,7 +13,7 @@ public class Colocation {
 	}
 	
 	public Colocation(String name) {
-		
+		this.name=name;
 	}
 
 	public String getName() {
