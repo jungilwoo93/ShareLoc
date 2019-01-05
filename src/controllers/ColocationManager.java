@@ -42,7 +42,7 @@ public class ColocationManager {
 		Colocation c = DaoColocation.find(nameColoc);
 		User u = DaoUser.find(login);
 		if(c!=null && u!=null) {
-			DaoColocation.inviteUser(nameColoc, login);
+			DaoColocation.inviteUser(c, login);
 			return true;
 		}
 		return false;

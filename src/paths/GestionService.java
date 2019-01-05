@@ -10,52 +10,44 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import controllers.ColocationManager;
-import model.Colocation;
 
-@Path("/colocation")
-public class GestionColocation {
+import controllers.ColocationManager;
+import controllers.ServiceManager;
+import model.Service;
+
+@Path("/services")
+public class GestionService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll() {
-		return ColocationManager.getColocations().toString();
+		return ServiceManager.getServices().toString();
 	}
 	
 	@GET
-	@Path("/coloc")
+	@Path("/service")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getColoc(@QueryParam("name") String name) {
-		return Response.ok().entity(ColocationManager.getColocation(name)).build();
+	public Response getService(@QueryParam("name") String name) {
+		return Response.ok().entity(ServiceManager.getService(name)).build();
 	}
 	
 	@PUT
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createColoc(@FormParam("name") String name) {
-		if(!ColocationManager.createColocation(name))
+	public Response createColoc(@FormParam("title") String title,@FormParam("description") String description,@FormParam("point") String cost) {
+		if(!ServiceManager.createService(title,description,cost))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.CREATED).build();
 	}
 	
-	@PUT
+	/*@PUT
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	//problème, ne pas mis à jour, il a create un nouveau
 	public Response update(@QueryParam("name") String name, @FormParam("name") String newName) {
-		Colocation c = ColocationManager.getColocation(name);
-		if(ColocationManager.update(name,newName))
+		Service c = ServiceManager.getService(name);
+		if(ServiceManager.update(name,newName))
 			return Response.ok().entity(Status.ACCEPTED).build();
 		return Response.ok().entity(Status.NOT_MODIFIED).build();
-	}
+	}*/
 	
-	@POST
-	@Path("/invite")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response inviteUser(@FormParam("colocation") String coloc, @FormParam("login") String user) {
-		if(ColocationManager.inviteUser(coloc, user)) {
-			return Response.ok().entity(Status.CREATED).build();
-		}
-		return Response.ok().entity(Status.NOT_FOUND).build();
-	}
 	
 }

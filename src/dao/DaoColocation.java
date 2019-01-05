@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -33,10 +34,10 @@ public class DaoColocation {
 		emf.close();
 	}
 	
-	public static void inviteUser(String coloc, String login) {
+	public static void inviteUser(Colocation coloc, String login) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
 		EntityManager em = emf.createEntityManager();
-		Colocation c = em.find(Colocation.class, coloc);
+		Colocation c = em.find(Colocation.class, coloc.getId());
 		User u = em.find(User.class, login);
 		Account a = new Account(c,u);
 		em.getTransaction().begin();
@@ -48,9 +49,19 @@ public class DaoColocation {
 	}
 	
 	public static Colocation find(Object id) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		try {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			Query query = em.createQuery("SELECT u FROM Colocation u WHERE u.name = :name");
+			query.setParameter("name", id);
+			return (Colocation) query.getSingleResult();
+		}catch(NoResultException e) {
+			return null;
+		}
+		/*EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
 		EntityManager em = emf.createEntityManager();
-		return em.find(Colocation.class, id);
+		return em.find(Colocation.class, id);*/
 	}
 	
 	public static Service findSercive(Object id) {
