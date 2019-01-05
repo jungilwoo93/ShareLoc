@@ -1,15 +1,23 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Service {
+public class Service implements Serializable{
 	@Id
-	private Colocation coloc;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
 	private String title;
 	private String description;
 	private int cost;
+	
+	private Colocation coloc;
 	
 	public Service() {
 		

@@ -8,6 +8,7 @@
 		<class>model.Colocation</class>
 		<class>model.Service</class>
 		<class>model.AchievedService</class>
+		<class>model.Account</class>
 		<properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ShareLoc?serverTimezone=UTC" />
             <property name="javax.persistence.jdbc.user" value="root" />

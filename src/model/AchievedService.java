@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class AchievedService {
+public class AchievedService implements Serializable{
 	@Id
 	private User from;
 	private List<User> to;
