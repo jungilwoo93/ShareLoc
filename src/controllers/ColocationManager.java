@@ -2,7 +2,9 @@ package controllers;
 
 import java.util.List;
 import dao.DaoColocation;
+import dao.DaoUser;
 import model.Colocation;
+import model.User;
 
 
 
@@ -31,6 +33,16 @@ public class ColocationManager {
 		if(c!=null) {
 			c.setName(newName);
 			DaoColocation.update(c);
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean inviteUser(String nameColoc,String login) {
+		Colocation c = DaoColocation.find(nameColoc);
+		User u = DaoUser.find(login);
+		if(c!=null && u!=null) {
+			DaoColocation.inviteUser(nameColoc, login);
 			return true;
 		}
 		return false;

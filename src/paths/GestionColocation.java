@@ -2,6 +2,7 @@ package paths;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -45,6 +46,16 @@ public class GestionColocation {
 		if(ColocationManager.update(name,newName))
 			return Response.ok().entity(Status.ACCEPTED).build();
 		return Response.ok().entity(Status.NOT_MODIFIED).build();
+	}
+	
+	@POST
+	@Path("/invite")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response inviteUser(@FormParam("colocation") String coloc, @FormParam("login") String user) {
+		if(ColocationManager.inviteUser(coloc, user)) {
+			return Response.ok().entity(Status.CREATED).build();
+		}
+		return Response.ok().entity(Status.NOT_FOUND).build();
 	}
 	
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import model.Account;
 import model.Colocation;
 import model.Service;
 import model.User;
@@ -26,13 +27,24 @@ public class DaoColocation {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(c);
+		em.flush();
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
 	}
 	
-	public static void inviteUser(User u) {
-		
+	public static void inviteUser(String coloc, String login) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
+		EntityManager em = emf.createEntityManager();
+		Colocation c = em.find(Colocation.class, coloc);
+		User u = em.find(User.class, login);
+		Account a = new Account(c,u);
+		em.getTransaction().begin();
+		em.persist(a);
+		em.flush();
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
 	}
 	
 	public static Colocation find(Object id) {

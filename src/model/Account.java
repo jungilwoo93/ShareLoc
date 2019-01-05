@@ -25,6 +25,18 @@ public class Account implements Serializable{
 		
 	}
 	
+	public Account(Colocation c,User u) {
+		this.coloc = c;
+		this.user = u;
+		this.credit=0;
+	}
+	
+	public Account(Colocation c,User u,int point) {
+		this.coloc = c;
+		this.user = u;
+		this.credit=point;
+	}
+	
 	public int getId() {
 		return id;
 	}

@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Colocation implements Serializable{
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	private int id;
 
 	private String name;
 	
@@ -59,13 +59,13 @@ public class Colocation implements Serializable{
 		this.name=name;
 	}
 	
-	public int getId() {
+	/*public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getName() {
 		return name;
