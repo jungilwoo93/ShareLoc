@@ -49,7 +49,7 @@ public class DaoColocation {
 	
 	public static void update(Colocation c) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareLoc");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = emf.createEntityManager();	
 		em.getTransaction().begin();
 		em.merge(c);
 		em.getTransaction().commit();
