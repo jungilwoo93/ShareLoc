@@ -28,6 +28,21 @@ public class ServiceManager {
 		return false;
 	}
 	
+	public static boolean createServiceWithColocation(String title,String description,int cost,String nameColoc) {
+		Service s = DaoService.find(title);
+		Colocation c = DaoColocation.find(nameColoc);
+		if (c == null) {
+			c = new Colocation(nameColoc);
+			DaoColocation.create(c);
+		}
+		if (s == null) {
+			s = new Service(c,title,description,cost);
+			DaoService.create(s);
+			return true;
+		}
+		return false;
+	}
+	
 	/*public static boolean update(String name, String newName) {
 		Service c = DaoService.find(name);
 		if(c!=null) {
