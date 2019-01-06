@@ -40,6 +40,7 @@ public class DaoService {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(u);
+		em.flush();
 		em.getTransaction().commit();
 		em.close();
 		emf.close();

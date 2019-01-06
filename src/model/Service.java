@@ -15,7 +15,7 @@ public class Service implements Serializable{
 	
 	private String title;
 	private String description;
-	private String cost;
+	private int cost;
 	
 	private Colocation coloc;
 	
@@ -23,14 +23,14 @@ public class Service implements Serializable{
 		
 	}
 	
-	public Service(String title, String description, String cost) {
-		//this.coloc=coloc;
+	public Service(String title, String description, int cost) {
+		//this.coloc=new Colocation();
 		this.title=title;
 		this.description=description;
 		this.cost=cost;
 	}
 	
-	public Service(Colocation coloc,String title, String description, String cost) {
+	public Service(Colocation coloc,String title, String description, int cost) {
 		this.coloc=coloc;
 		this.title=title;
 		this.description=description;
@@ -55,12 +55,12 @@ public class Service implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getCost() {
+	/*public String getCost() {
 		return cost;
 	}
 	public void setCost(String cost) {
 		this.cost = cost;
-	}
+	}*/
 	
 	
 }

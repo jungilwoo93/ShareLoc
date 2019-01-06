@@ -18,7 +18,7 @@ public class ServiceManager {
 		return DaoService.find(id);
 	}
 	
-	public static boolean createService(String title,String description,String cost) {
+	public static boolean createService(String title,String description,int cost) {
 		Service c = DaoService.find(title);
 		if (c == null) {
 			c = new Service(title,description,cost);

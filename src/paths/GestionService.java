@@ -33,8 +33,8 @@ public class GestionService {
 	@PUT
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createColoc(@FormParam("title") String title,@FormParam("description") String description,@FormParam("point") String cost) {
-		if(!ServiceManager.createService(title,description,cost))
+	public Response createColoc(@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost) {
+		if(!ServiceManager.createService(title,description,Integer.parseInt(cost)))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.CREATED).build();
 	}
