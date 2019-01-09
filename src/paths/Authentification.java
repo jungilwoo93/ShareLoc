@@ -32,8 +32,8 @@ public class Authentification {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllUser() {
-		return UserManager.getUsers().toString();
+	public Response getAllUser() {
+		return Response.ok().entity(UserManager.getUsers()).build();
 	}
 
 	@GET

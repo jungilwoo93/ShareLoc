@@ -87,7 +87,8 @@ public class Service implements Serializable{
 	}
 
 	public void setAchieved(AchievedService achieved) {
-		this.achieved = achieved;
+		this.achieved = null;
+		this.achieved=achieved;
 	}
 
 	public int getPour() {

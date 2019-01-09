@@ -1,5 +1,7 @@
 package paths;
 
+import java.io.IOException;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -33,8 +35,8 @@ public class GestionService {
 	@PUT
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createService(@FormParam("name") String nameColoc, @QueryParam("login") String login,@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost) {
-		if(!ServiceManager.createService(nameColoc,login,title,description,Integer.parseInt(cost)))
+	public Response createService(@FormParam("name") String nameColoc, @QueryParam("login") String login,@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost,@FormParam("days") String days) {
+		if(!ServiceManager.createService(nameColoc,login,title,description,Integer.parseInt(cost),Integer.parseInt(days)))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.CREATED).build();
 	}
@@ -42,8 +44,8 @@ public class GestionService {
 	@PUT
 	@Path("/realisation")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createServiceWithColocation(@QueryParam("login") String login,@QueryParam("name") String nameColoc,@QueryParam("title") String title/*,@QueryParam("share") String share*/) {
-		if(!ServiceManager.realisation(login,nameColoc,title/*,Integer.parseInt(share)*/))
+	public Response createServiceWithColocation(@QueryParam("login") String login,@QueryParam("name") String nameColoc,@QueryParam("title") String title, @FormParam("img") String urlImg, @FormParam("share") String share) {
+		if(!ServiceManager.realisation(login,nameColoc,title,urlImg,Integer.parseInt(share)))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.ACCEPTED).build();
 	}

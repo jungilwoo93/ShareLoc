@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import dao.DaoColocation;
@@ -19,7 +20,7 @@ public class ServiceManager {
 		return DaoService.find(id);
 	}
 	
-	public static boolean createService(String nameColoc, String login,String title,String description,int cost) {
+	public static boolean createService(String nameColoc, String login,String title,String description,int cost,int days) {
 		Service s = DaoService.find(title);
 		Colocation c = DaoColocation.find(nameColoc);
 		User u = DaoUser.find(login);
@@ -28,6 +29,9 @@ public class ServiceManager {
 		}
 		if (s == null) {
 			s = new Service(c,u,title,description,cost);
+			AchievedService as = new AchievedService();
+			as.setDays(days);
+			s.setAchieved(as);
 			c.getServices().add(s);	
 			DaoColocation.update(c);
 			//DaoService.create(s);
@@ -36,22 +40,29 @@ public class ServiceManager {
 		return false;
 	}
 	
-	public static boolean realisation(String login,String nameColoc,String title/*,int share*/) {
+	public static boolean realisation(String login,String nameColoc,String title,String urlFile,int share){
 		Service s = DaoService.find(title);
 		User u =DaoUser.find(login);
 		Colocation c = DaoColocation.find(nameColoc);
 		if (s != null&&u!=null) {
 			AchievedService as = new AchievedService();
+			as.setDays(s.getAchieved().getDays());
 			as.setFrom(u);
-			//s.getAchieved().setFrom(u);
-			/*if(share==1) {
+			as.setImg(urlFile);
+			if(share==1) {
 				as.setTo(c.getUsers());
 				as.setShare(true);
-			}*/
+			}
 			s.setAchieved(as);
 			DaoService.update(s);
+			//DaoAchievedService.update();
 			return true;
 		}
+		return false;
+	}
+	
+	public static boolean validate(String login) {
+		//pour voir
 		return false;
 	}
 	
