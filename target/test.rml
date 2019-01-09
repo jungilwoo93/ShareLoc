@@ -1,0 +1,308 @@
+#%RAML 1.0
+title: 
+    value: Raml API generated from classes
+baseUri: 
+    value: "http://www.baseuri.com"
+mediaType: "*/*"
+version: 
+    value: 1.0
+types: 
+    Response: 
+        type: object
+        displayName: 
+            value: Response
+/api: 
+    get: 
+        responses: 
+            200: 
+                body: 
+                    application/json: 
+                        type: Response
+                        displayName: 
+                            value: application/json
+                displayName: 
+                    value: 200
+        displayName: 
+            value: get
+    /whoami: 
+        get: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            displayName: 
+                value: get
+        displayName: 
+            value: /whoami
+    /update: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                login: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: login
+            displayName: 
+                value: put
+        displayName: 
+            value: /update
+    /signup: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            displayName: 
+                value: put
+        displayName: 
+            value: /signup
+    /signin: 
+        post: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                login: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: login
+                password: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: password
+            displayName: 
+                value: post
+        displayName: 
+            value: /signin
+    displayName: 
+        value: /api
+/colocation: 
+    get: 
+        responses: 
+            200: 
+                body: 
+                    application/json: 
+                        type: string
+                        displayName: 
+                            value: application/json
+                displayName: 
+                    value: 200
+        displayName: 
+            value: get
+    /update: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                name: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: name
+            displayName: 
+                value: put
+        displayName: 
+            value: /update
+    /invite: 
+        post: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            displayName: 
+                value: post
+        displayName: 
+            value: /invite
+    /create: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                login: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: login
+            displayName: 
+                value: put
+        displayName: 
+            value: /create
+    /coloc: 
+        get: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                name: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: name
+            displayName: 
+                value: get
+        displayName: 
+            value: /coloc
+    displayName: 
+        value: /colocation
+/services: 
+    get: 
+        responses: 
+            200: 
+                body: 
+                    application/json: 
+                        type: string
+                        displayName: 
+                            value: application/json
+                displayName: 
+                    value: 200
+        displayName: 
+            value: get
+    /realisation: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                login: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: login
+                name: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: name
+                title: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: title
+            displayName: 
+                value: put
+        displayName: 
+            value: /realisation
+    /service: 
+        get: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                name: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: name
+            displayName: 
+                value: get
+        displayName: 
+            value: /service
+    /create: 
+        put: 
+            responses: 
+                200: 
+                    body: 
+                        application/json: 
+                            type: Response
+                            displayName: 
+                                value: application/json
+                    displayName: 
+                        value: 200
+            queryParameters: 
+                login: 
+                    type: 
+                        type: string
+                        displayName: 
+                            value: type
+                    displayName: 
+                        value: login
+            displayName: 
+                value: put
+        displayName: 
+            value: /create
+    displayName: 
+        value: /services
