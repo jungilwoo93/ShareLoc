@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.List;
 
+import dao.DaoAchievedService;
 import dao.DaoColocation;
 import dao.DaoService;
 import dao.DaoUser;
@@ -46,6 +47,7 @@ public class ServiceManager {
 		Colocation c = DaoColocation.find(nameColoc);
 		if (s != null&&u!=null) {
 			AchievedService as = new AchievedService();
+			as.setId(s.getAchieved().getId());
 			as.setDays(s.getAchieved().getDays());
 			as.setFrom(u);
 			as.setImg(urlFile);
@@ -54,8 +56,8 @@ public class ServiceManager {
 				as.setShare(true);
 			}
 			s.setAchieved(as);
+			DaoAchievedService.update(as);
 			DaoService.update(s);
-			//DaoAchievedService.update();
 			return true;
 		}
 		return false;
