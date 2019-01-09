@@ -18,10 +18,14 @@ public class ColocationManager {
 		return DaoColocation.find(id);
 	}
 	
-	public static boolean createColocation(String name) {
+	public static boolean createColocation(String name,String login) {
 		Colocation c = DaoColocation.find(name);
+		User u = DaoUser.find(login);
+		if(u==null) {
+			return false;
+		}
 		if (c == null) {
-			c = new Colocation(name);
+			c = new Colocation(name,u);
 			DaoColocation.create(c);
 			return true;
 		}
@@ -43,6 +47,8 @@ public class ColocationManager {
 		User u = DaoUser.find(login);
 		if(c!=null && u!=null) {
 			DaoColocation.inviteUser(c, login);
+			c.getUsers().add(u);
+			DaoColocation.update(c);
 			return true;
 		}
 		return false;

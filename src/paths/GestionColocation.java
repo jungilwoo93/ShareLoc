@@ -31,8 +31,8 @@ public class GestionColocation {
 	@PUT
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createColoc(@FormParam("name") String name) {
-		if(!ColocationManager.createColocation(name))
+	public Response createColoc(@FormParam("name") String name,@QueryParam("login") String login) {
+		if(!ColocationManager.createColocation(name,login))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.CREATED).build();
 	}

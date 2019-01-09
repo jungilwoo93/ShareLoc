@@ -16,11 +16,23 @@ public class Service implements Serializable{
 	private String title;
 	private String description;
 	private int cost;
+	private User creator;// qui propose ce service
+	private AchievedService achieved;
+	private int pour;
+	private int contre;
 	
 	private Colocation coloc;
 	
 	public Service() {
-		
+	}
+	
+	public Service(Colocation coloc,User creator,String title,String description, int cost) {
+		this.coloc=coloc;
+		this.creator=creator;
+		this.title=title;
+		this.description=description;
+		this.cost=cost;
+		//this.achieved=as;
 	}
 	
 	public Service(String title, String description, int cost) {
@@ -55,12 +67,44 @@ public class Service implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	/*public String getCost() {
+	public int getCost() {
 		return cost;
 	}
-	public void setCost(String cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
-	}*/
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public AchievedService getAchieved() {
+		return achieved;
+	}
+
+	public void setAchieved(AchievedService achieved) {
+		this.achieved = achieved;
+	}
+
+	public int getPour() {
+		return pour;
+	}
+
+	public void setPour(int pour) {
+		this.pour = pour;
+	}
+
+	public int getContre() {
+		return contre;
+	}
+
+	public void setContre(int contre) {
+		this.contre = contre;
+	}
 	
 	
 }

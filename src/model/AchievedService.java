@@ -11,14 +11,22 @@ import javax.persistence.Id;
 @Entity
 public class AchievedService implements Serializable{
 	@Id
-	private User from;
-	private List<User> to;
+	private User from; // qui realise/rend le service
+	private List<User> to; // qui benifie(ent) le service
 	private String date;
-	private URL img;
-	private boolean valid=false;
+	private URL img; // quand declarer la realisation possible attachant une photo
+	private boolean valid;
+	private boolean share;
+	//quand service est valide, le cout ajoute dans le compte
+	//ou partager le cout aux autres membres de la colocation
 	
 	public AchievedService() {
-		
+		this.from=null;
+		this.to=null;
+		this.date=null;
+		this.img=null;
+		this.valid=false;
+		this.share=false;
 	}
 	
 	public AchievedService(User from,List<User> to, String date, URL img) {
@@ -26,6 +34,8 @@ public class AchievedService implements Serializable{
 		this.to=to;
 		this.date=date;
 		this.img=img;
+		this.valid=false;
+		this.share=false;
 	}
 
 	public User getFrom() {
@@ -66,6 +76,14 @@ public class AchievedService implements Serializable{
 
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+
+	public boolean isShare() {
+		return share;
+	}
+
+	public void setShare(boolean share) {
+		this.share = share;
 	}
 	
 }

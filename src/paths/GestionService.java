@@ -33,19 +33,19 @@ public class GestionService {
 	@PUT
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createService(@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost) {
-		if(!ServiceManager.createService(title,description,Integer.parseInt(cost)))
+	public Response createService(@FormParam("name") String nameColoc, @QueryParam("login") String login,@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost) {
+		if(!ServiceManager.createService(nameColoc,login,title,description,Integer.parseInt(cost)))
 			return Response.ok().entity(Status.FORBIDDEN).build();
 		return Response.ok().entity(Status.CREATED).build();
 	}
 	
 	@PUT
-	@Path("/serviceColoc")
+	@Path("/realisation")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response createServiceWithColocation(@FormParam("title") String title,@FormParam("description") String description,@FormParam("cost") String cost,@FormParam("name") String nameColoc) {
-		if(!ServiceManager.createServiceWithColocation(title,description,Integer.parseInt(cost),nameColoc))
+	public Response createServiceWithColocation(@QueryParam("login") String login,@QueryParam("name") String nameColoc,@QueryParam("title") String title/*,@QueryParam("share") String share*/) {
+		if(!ServiceManager.realisation(login,nameColoc,title/*,Integer.parseInt(share)*/))
 			return Response.ok().entity(Status.FORBIDDEN).build();
-		return Response.ok().entity(Status.CREATED).build();
+		return Response.ok().entity(Status.ACCEPTED).build();
 	}
 	
 	/*@PUT

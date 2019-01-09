@@ -55,8 +55,10 @@ public class Colocation implements Serializable{
 		
 	}
 	
-	public Colocation(String name) {
+	public Colocation(String name,User u) {
 		this.name=name;
+		this.admin=u;
+		
 	}
 	
 	public int getId() {
